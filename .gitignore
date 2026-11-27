@@ -6,3 +6,6 @@ __pycache__/
 *.sqlite3
 ml/data/*
 ml/artifacts/*
+!ml/artifacts/
+!ml/artifacts/heart_disease_pipeline.joblib
+!ml/artifacts/evaluation_metrics.json

@@ -1,0 +1,245 @@
+{
+  "selection_metric": "highest mean 5-fold cross-validation F1 on training data; recall breaks ties",
+  "selected_model": "Logistic Regression",
+  "random_state": 42,
+  "test_size": 0.2,
+  "profile": {
+    "source": "https://archive.ics.uci.edu/static/public/45/data.csv",
+    "rows_after_cleaning": 303,
+    "duplicates_removed": 0,
+    "rows_with_missing_target_removed": 0,
+    "feature_columns": [
+      "age",
+      "sex",
+      "cp",
+      "trestbps",
+      "chol",
+      "fbs",
+      "restecg",
+      "thalach",
+      "exang",
+      "oldpeak",
+      "slope",
+      "ca",
+      "thal"
+    ],
+    "target_definition": "num == 0 -> 0; num > 0 -> 1",
+    "missing_values_by_feature": {
+      "age": 0,
+      "sex": 0,
+      "cp": 0,
+      "trestbps": 0,
+      "chol": 0,
+      "fbs": 0,
+      "restecg": 0,
+      "thalach": 0,
+      "exang": 0,
+      "oldpeak": 0,
+      "slope": 0,
+      "ca": 4,
+      "thal": 2
+    },
+    "class_counts": {
+      "0": 164,
+      "1": 139
+    },
+    "numeric_summary": {
+      "age": {
+        "count": 303.0,
+        "mean": 54.4389438944,
+        "std": 9.0386624424,
+        "min": 29.0,
+        "25%": 48.0,
+        "50%": 56.0,
+        "75%": 61.0,
+        "max": 77.0
+      },
+      "trestbps": {
+        "count": 303.0,
+        "mean": 131.6897689769,
+        "std": 17.5997477296,
+        "min": 94.0,
+        "25%": 120.0,
+        "50%": 130.0,
+        "75%": 140.0,
+        "max": 200.0
+      },
+      "chol": {
+        "count": 303.0,
+        "mean": 246.6930693069,
+        "std": 51.7769175426,
+        "min": 126.0,
+        "25%": 211.0,
+        "50%": 241.0,
+        "75%": 275.0,
+        "max": 564.0
+      },
+      "thalach": {
+        "count": 303.0,
+        "mean": 149.6072607261,
+        "std": 22.875003277,
+        "min": 71.0,
+        "25%": 133.5,
+        "50%": 153.0,
+        "75%": 166.0,
+        "max": 202.0
+      },
+      "oldpeak": {
+        "count": 303.0,
+        "mean": 1.0396039604,
+        "std": 1.1610750221,
+        "min": 0.0,
+        "25%": 0.0,
+        "50%": 0.8,
+        "75%": 1.6,
+        "max": 6.2
+      }
+    }
+  },
+  "models": {
+    "Logistic Regression": {
+      "cross_validation": {
+        "accuracy": {
+          "mean": 0.8551870748299321,
+          "std": 0.023767881465657423
+        },
+        "precision": {
+          "mean": 0.8730744935655421,
+          "std": 0.062069878232006284
+        },
+        "recall": {
+          "mean": 0.8098814229249012,
+          "std": 0.061619526545154374
+        },
+        "f1": {
+          "mean": 0.8365444245676803,
+          "std": 0.02550620767591018
+        }
+      },
+      "test": {
+        "accuracy": 0.8688524590163934,
+        "precision": 0.8125,
+        "recall": 0.9285714285714286,
+        "f1": 0.8666666666666667,
+        "confusion_matrix": [
+          [
+            27,
+            6
+          ],
+          [
+            2,
+            26
+          ]
+        ]
+      }
+    },
+    "Decision Tree": {
+      "cross_validation": {
+        "accuracy": {
+          "mean": 0.6900510204081632,
+          "std": 0.04349055460721904
+        },
+        "precision": {
+          "mean": 0.6525567765567766,
+          "std": 0.04957574925499841
+        },
+        "recall": {
+          "mean": 0.7019762845849803,
+          "std": 0.07587903421621747
+        },
+        "f1": {
+          "mean": 0.6738831924655068,
+          "std": 0.0492818384313683
+        }
+      },
+      "test": {
+        "accuracy": 0.7704918032786885,
+        "precision": 0.7058823529411765,
+        "recall": 0.8571428571428571,
+        "f1": 0.7741935483870968,
+        "confusion_matrix": [
+          [
+            23,
+            10
+          ],
+          [
+            4,
+            24
+          ]
+        ]
+      }
+    },
+    "Random Forest": {
+      "cross_validation": {
+        "accuracy": {
+          "mean": 0.8016156462585033,
+          "std": 0.021454201279861373
+        },
+        "precision": {
+          "mean": 0.7788378288378289,
+          "std": 0.039866398773502426
+        },
+        "recall": {
+          "mean": 0.800790513833992,
+          "std": 0.0853370576632106
+        },
+        "f1": {
+          "mean": 0.7855127886249638,
+          "std": 0.03322486150975345
+        }
+      },
+      "test": {
+        "accuracy": 0.8852459016393442,
+        "precision": 0.8181818181818182,
+        "recall": 0.9642857142857143,
+        "f1": 0.8852459016393442,
+        "confusion_matrix": [
+          [
+            27,
+            6
+          ],
+          [
+            1,
+            27
+          ]
+        ]
+      }
+    },
+    "Support Vector Machine": {
+      "cross_validation": {
+        "accuracy": {
+          "mean": 0.8180272108843537,
+          "std": 0.025266694927376297
+        },
+        "precision": {
+          "mean": 0.8218847296494355,
+          "std": 0.06167513768378428
+        },
+        "recall": {
+          "mean": 0.78300395256917,
+          "std": 0.0682822769117216
+        },
+        "f1": {
+          "mean": 0.7973406735108863,
+          "std": 0.026502718828659292
+        }
+      },
+      "test": {
+        "accuracy": 0.8852459016393442,
+        "precision": 0.8387096774193549,
+        "recall": 0.9285714285714286,
+        "f1": 0.8813559322033898,
+        "confusion_matrix": [
+          [
+            28,
+            5
+          ],
+          [
+            2,
+            26
+          ]
+        ]
+      }
+    }
+  }
+}
