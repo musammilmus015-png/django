@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Heartwise | Educational Heart Health Project{% endblock %}
+
+{% block content %}
+<section class="hero-section py-5 py-lg-6">
+  <div class="container py-4">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <span class="eyebrow">MACHINE LEARNING · EDUCATIONAL PROJECT</span>
+        <h1 class="display-4 fw-bold mt-3">Understand the patterns in heart health data.</h1>
+        <p class="lead text-secondary mt-3">
+          Explore a research demonstration that compares patient information with patterns in the
+          historical Cleveland Heart Disease dataset.
+        </p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          {% if user.is_authenticated %}
+            <a class="btn btn-primary btn-lg" href="{% url 'prediction_create' %}">Start a prediction</a>
+            <a class="btn btn-outline-primary btn-lg" href="{% url 'dashboard' %}">Open dashboard</a>
+          {% else %}
+            <a class="btn btn-primary btn-lg" href="{% url 'register' %}">Get started</a>
+            <a class="btn btn-outline-primary btn-lg" href="{% url 'about' %}">Learn about the project</a>
+          {% endif %}
+        </div>
+        <p class="small text-secondary mt-3 mb-0">For education and research only. Never for diagnosis or treatment decisions.</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="hero-card p-4 p-md-5">
+          <div class="hero-mark" aria-hidden="true">+</div>
+          <p class="eyebrow mb-2">A research demonstration</p>
+          <h2 class="h3 fw-bold">From health data to a model estimate</h2>
+          <p class="text-secondary mb-0">
+            A trained classifier processes 13 input features. Its output is a model estimate,
+            not a clinically validated measure of personal risk.
+          </p>
+          <hr>
+          <div class="d-flex justify-content-between small">
+            <span class="text-secondary">Dataset</span>
+            <span class="fw-semibold">UCI Cleveland subset</span>
+          </div>
+          <div class="d-flex justify-content-between small mt-2">
+            <span class="text-secondary">Purpose</span>
+            <span class="fw-semibold">Learning and research</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <article class="info-card h-100">
+        <span class="card-kicker">01 · EXPLORE</span>
+        <h2 class="h5 mt-3">A familiar research dataset</h2>
+        <p class="text-secondary mb-0">Use a public, historical dataset to explore how classification workflows are developed and evaluated.</p>
+      </article>
+    </div>
+    <div class="col-md-4">
+      <article class="info-card h-100">
+        <span class="card-kicker">02 · COMPARE</span>
+        <h2 class="h5 mt-3">Transparent model evaluation</h2>
+        <p class="text-secondary mb-0">Compare several common classifiers with held-out metrics instead of hardcoded demo predictions.</p>
+      </article>
+    </div>
+    <div class="col-md-4">
+      <article class="info-card h-100">
+        <span class="card-kicker">03 · REMEMBER</span>
+        <h2 class="h5 mt-3">Not a medical assessment</h2>
+        <p class="text-secondary mb-0">Historical data and an unvalidated model cannot diagnose a person or guide care.</p>
+      </article>
+    </div>
+  </div>
+</section>
+{% endblock %}

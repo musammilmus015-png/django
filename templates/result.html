@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction result | Heartwise{% endblock %}
+
+{% block content %}
+<section class="container py-4 py-lg-5">
+  <div class="page-heading mb-4">
+    <p class="eyebrow mb-2">MODEL OUTPUT</p>
+    <h1 class="h2 fw-bold mb-1">Prediction result</h1>
+    <p class="text-secondary mb-0">Record #{{ prediction.pk }} · {{ prediction.created_date|date:"M j, Y, P" }}</p>
+  </div>
+
+  <div class="result-card mb-4 {% if prediction.predicted_result %}result-positive{% else %}result-negative{% endif %}">
+    <p class="eyebrow mb-2">CLASSIFICATION</p>
+    {% if prediction.predicted_result %}
+      <h2 class="display-6 fw-bold">Positive model output</h2>
+      <p class="mb-0">The model classified this input in the positive class. This is not a diagnosis; please discuss health questions with a healthcare professional.</p>
+    {% else %}
+      <h2 class="display-6 fw-bold">Negative model output</h2>
+      <p class="mb-0">The model classified this input in the negative class. This does not rule out heart disease or replace an evaluation by a healthcare professional.</p>
+    {% endif %}
+    <div class="probability-panel mt-4">
+      <span class="small text-secondary">Model-estimated probability for the positive class</span>
+      <strong class="h3 d-block mb-0">{{ prediction.model_probability_percent|floatformat:1 }}%</strong>
+    </div>
+    <p class="small mt-3 mb-0">This probability is the classifier's output for this input. It is not a clinically validated individual risk score.</p>
+  </div>
+
+  <div class="content-card">
+    <h2 class="h5 fw-bold mb-3">Input summary</h2>
+    <dl class="row mb-0 patient-summary">
+      <dt class="col-sm-6">Age</dt><dd class="col-sm-6">{{ prediction.patient.age }}</dd>
+      <dt class="col-sm-6">Sex</dt><dd class="col-sm-6">{{ prediction.patient.get_sex_display }}</dd>
+      <dt class="col-sm-6">Chest pain type</dt><dd class="col-sm-6">{{ prediction.patient.get_chest_pain_type_display }}</dd>
+      <dt class="col-sm-6">Resting blood pressure</dt><dd class="col-sm-6">{{ prediction.patient.blood_pressure }} mm Hg</dd>
+      <dt class="col-sm-6">Cholesterol</dt><dd class="col-sm-6">{{ prediction.patient.cholesterol }} mg/dL</dd>
+      <dt class="col-sm-6">Fasting blood sugar > 120 mg/dL</dt><dd class="col-sm-6">{{ prediction.patient.get_fasting_blood_sugar_display }}</dd>
+      <dt class="col-sm-6">Resting ECG</dt><dd class="col-sm-6">{{ prediction.patient.get_resting_ecg_display }}</dd>
+      <dt class="col-sm-6">Maximum heart rate</dt><dd class="col-sm-6">{{ prediction.patient.maximum_heart_rate }}</dd>
+      <dt class="col-sm-6">Exercise-induced angina</dt><dd class="col-sm-6">{{ prediction.patient.get_exercise_angina_display }}</dd>
+      <dt class="col-sm-6">ST depression (Oldpeak)</dt><dd class="col-sm-6">{{ prediction.patient.oldpeak }}</dd>
+      <dt class="col-sm-6">Slope</dt><dd class="col-sm-6">{{ prediction.patient.get_slope_display }}</dd>
+      <dt class="col-sm-6">Number of major vessels</dt><dd class="col-sm-6">{{ prediction.patient.number_of_vessels }}</dd>
+      <dt class="col-sm-6">Thalassemia</dt><dd class="col-sm-6">{{ prediction.patient.get_thalassemia_display }}</dd>
+    </dl>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+      <a class="btn btn-primary" href="{% url 'prediction_create' %}">New prediction</a>
+      <a class="btn btn-outline-primary" href="{% url 'prediction_history' %}">Prediction history</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

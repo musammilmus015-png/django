@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}About | Heartwise{% endblock %}
+
+{% block content %}
+<section class="container py-4 py-lg-5">
+  <div class="page-heading mb-4">
+    <p class="eyebrow mb-2">ABOUT THE PROJECT</p>
+    <h1 class="h2 fw-bold">A learning tool, not a medical service</h1>
+  </div>
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <article class="content-card">
+        <h2 class="h5 fw-bold">About heart disease</h2>
+        <p class="text-secondary">Heart disease is a broad term for conditions that affect the heart or its blood vessels. Symptoms and risk factors vary by condition and person, so a dataset-based classifier cannot determine an individual's diagnosis or care needs.</p>
+        <h2 class="h5 fw-bold">What this project does</h2>
+        <p class="text-secondary">Heartwise demonstrates a supervised machine-learning workflow using 13 clinical attributes from the Cleveland subset of the UCI Heart Disease dataset. It compares logistic regression, a decision tree, a random forest, and a support vector machine, then uses the selected saved preprocessing and classification pipeline for new form inputs.</p>
+        <h2 class="h5 fw-bold mt-4">How to interpret an output</h2>
+        <p class="text-secondary">The positive/negative label is a model classification based on historical data. The probability is the classifier's estimated probability for its positive class, and it is not clinically calibrated or validated as an individual's likelihood of disease. Model performance on a small historical dataset does not establish safety or effectiveness in clinical settings.</p>
+        <h2 class="h5 fw-bold mt-4">Dataset</h2>
+        <p class="text-secondary mb-0">The UCI Heart Disease dataset combines records collected for research. The Cleveland subset used here contains historical observations and cannot represent every population or current clinical practice. <a href="https://archive.ics.uci.edu/dataset/45/heart+disease" target="_blank" rel="noopener noreferrer">Read the UCI dataset description</a>.</p>
+      </article>
+    </div>
+    <div class="col-lg-4">
+      <aside class="notice-card">
+        <p class="eyebrow">IMPORTANT</p>
+        <h2 class="h5 fw-bold">Please seek professional care</h2>
+        <p class="text-secondary mb-0">This educational system is not a substitute for professional medical diagnosis, treatment, or advice. If you have health concerns, contact a qualified healthcare professional. For urgent symptoms, seek emergency care.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}

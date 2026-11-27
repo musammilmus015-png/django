@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction history | Heartwise{% endblock %}
+
+{% block content %}
+<section class="container py-4 py-lg-5">
+  <div class="page-heading d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+    <div>
+      <p class="eyebrow mb-2">YOUR RECORDS</p>
+      <h1 class="h2 fw-bold mb-1">Prediction history</h1>
+      <p class="text-secondary mb-0">Only records saved to your account are shown here.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'prediction_create' %}">New prediction</a>
+  </div>
+  <div class="content-card">
+    <form method="get" class="row g-2 align-items-end mb-4">
+      <div class="col-sm">
+        <label class="form-label" for="historySearch">Search by record ID, age, or output class</label>
+        <input class="form-control" id="historySearch" name="q" value="{{ search_query }}" type="search" placeholder="e.g. 12, 63, positive">
+      </div>
+      <div class="col-sm-auto d-flex gap-2">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+        {% if search_query %}<a class="btn btn-outline-secondary" href="{% url 'prediction_history' %}">Clear</a>{% endif %}
+      </div>
+    </form>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead><tr><th scope="col">Record</th><th scope="col">Date</th><th scope="col">Age</th><th scope="col">Model output</th><th scope="col">Positive-class estimate</th><th scope="col" class="text-end">Actions</th></tr></thead>
+        <tbody>
+          {% for item in predictions %}
+            <tr>
+              <td>#{{ item.pk }}</td>
+              <td>{{ item.created_date|date:"M j, Y" }}</td>
+              <td>{{ item.patient.age }}</td>
+              <td>
+                {% if item.predicted_result %}<span class="badge text-bg-primary">Positive</span>
+                {% else %}<span class="badge text-bg-secondary">Negative</span>{% endif %}
+              </td>
+              <td>{{ item.model_probability_percent|floatformat:1 }}%</td>
+              <td class="text-end text-nowrap">
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'prediction_result' item.pk %}">View</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'prediction_delete' item.pk %}">Delete</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="6"><div class="empty-state">No matching records found.</div></td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="small text-secondary mb-0">Model estimates are educational outputs and are not clinically validated risk scores.</p>
+  </div>
+</section>
+{% endblock %}

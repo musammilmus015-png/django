@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Log in | Heartwise{% endblock %}
+
+{% block content %}
+<section class="container auth-section py-5">
+  <div class="auth-card mx-auto">
+    <p class="eyebrow">WELCOME BACK</p>
+    <h1 class="h2 fw-bold">Log in</h1>
+    <p class="text-secondary">Continue to your educational dashboard.</p>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+      {% endif %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label class="form-label fw-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% for error in field.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+        </div>
+      {% endfor %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn btn-primary w-100 mt-2" type="submit">Log in</button>
+    </form>
+    <p class="text-secondary small mt-4 mb-0">New here? <a href="{% url 'register' %}">Create an account</a>.</p>
+  </div>
+</section>
+{% endblock %}
