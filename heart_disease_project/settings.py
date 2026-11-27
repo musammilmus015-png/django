@@ -6,13 +6,18 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "local-development-only-change-before-production",
+)
 DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower() in {"true", "1", "yes"}
 ALLOWED_HOSTS = [
     host.strip()
     for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
     if host.strip()
 ]
+if render_hostname := os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
+    ALLOWED_HOSTS.append(render_hostname)
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -55,17 +60,25 @@ TEMPLATES = [
 WSGI_APPLICATION = "heart_disease_project.wsgi.application"
 ASGI_APPLICATION = "heart_disease_project.asgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("MYSQL_DATABASE", "heart_disease_db"),
-        "USER": os.environ.get("MYSQL_USER", "heart_disease_user"),
-        "PASSWORD": os.environ.get("MYSQL_PASSWORD", ""),
-        "HOST": os.environ.get("MYSQL_HOST", "127.0.0.1"),
-        "PORT": os.environ.get("MYSQL_PORT", "3306"),
-        "OPTIONS": {"charset": "utf8mb4"},
+if os.environ.get("MYSQL_DATABASE"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ["MYSQL_DATABASE"],
+            "USER": os.environ.get("MYSQL_USER", "heart_disease_user"),
+            "PASSWORD": os.environ.get("MYSQL_PASSWORD", ""),
+            "HOST": os.environ.get("MYSQL_HOST", "127.0.0.1"),
+            "PORT": os.environ.get("MYSQL_PORT", "3306"),
+            "OPTIONS": {"charset": "utf8mb4"},
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "preview.sqlite3",
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
